@@ -7,21 +7,29 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # require 'rest-client'
 # require 'json'
+# Ingredient.create(name: "lemon")
+# Ingredient.create(name: "ice")
+# Ingredient.create(name: "mint leaves")
+# Ingredient.create(name: "vodka")
+# Ingredient.create(name: "soda")
+# Ingredient.create(name: "gin")
+# Ingredient.create(name: "tonic")
+# Ingredient.create(name: "sprite")
+# Ingredient.create(name: "juice")
 
-# url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
-# response = RestClient.get(url)
-# drinks = JSON.parse(response)
-# drinks.each do |drink|
-#   Ingredient.create!(name: drink)
-# end
+Cocktail.destroy_all
 Ingredient.destroy_all
 
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
-Ingredient.create(name: "vodka")
-Ingredient.create(name: "soda")
-Ingredient.create(name: "gin")
-Ingredient.create(name: "tonic")
-Ingredient.create(name: "sprite")
-Ingredient.create(name: "juice")
+url = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+response = RestClient.get(url)
+json = JSON.parse(response, symbolize_names: true)
+
+json[:drinks].each do |drink|
+  name = drink[:strIngredient1]
+
+  puts "+ #{name}"
+
+  Ingredient.create!(name: name)
+end
+
+puts "done"
