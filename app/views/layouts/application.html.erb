@@ -13,6 +13,18 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class= "container mt-5" >
+      <nav class = "navbar navbar-light bg-light">
+        <%= link_to "Home", root_path, class: "btn btn-success" %>
+        <%= link_to "Add Cocktail", new_cocktail_path, class: "btn btn-outline-success" %>
+        <%= link_to "Home", root_path, class: "btn btn-success" %>
+      </nav>
+      <%= yield %>
+
+      <footer class="mt-5">
+        &copy; <%= Date.today.year %> AACE
+      </footer>
+    </div>
   </body>
+
 </html>

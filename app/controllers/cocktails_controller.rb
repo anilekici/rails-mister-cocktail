@@ -1,6 +1,6 @@
 class CocktailsController < ApplicationController
   def index
-    @cocktails = Cocktail.all
+    @cocktails = Cocktail.all.order(name: :asc)
   end
 
   def show
@@ -16,7 +16,7 @@ class CocktailsController < ApplicationController
     @cocktail.save
 
     if @cocktail.save
-      redirect_to cocktail_path(@cocktail)
+      redirect_to cocktail_path(@cocktail), notice: "Cocktail <strong>#{@cocktail.name}</strong> was created successfully."
     else
       render :new
     end
@@ -25,6 +25,6 @@ class CocktailsController < ApplicationController
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name)
+    params.require(:cocktail).permit(:name, :photo)
   end
 end
